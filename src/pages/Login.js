@@ -55,22 +55,25 @@ const Login = () => {
         {/* Password Input with Show/Hide Feature */}
         <div className="mb-6 relative">
           <label htmlFor="password" className="block text-gray-300 mb-2">Password</label>
-          <input
-            type={showPassword ? 'text' : 'password'}
-            id="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-3 pr-12 border border-gray-700 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
-            placeholder="Enter your password"
-            required
-          />
-          <button
-            type="button"
-            className="absolute inset-y-0 right-3 flex items-center text-blue-400 hover:text-blue-300"
-            onClick={() => setShowPassword((prev) => !prev)}
-          >
-            {showPassword ? 'Hide' : 'Show'}
-          </button>
+          <div className="relative">
+            <input
+              type={showPassword ? 'text' : 'password'}
+              id="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              className="w-full p-3 pr-12 border border-gray-700 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+              placeholder="Enter your password"
+              required
+            />
+            {/* Show/Hide Button */}
+            <button
+              type="button"
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-blue-400 hover:text-blue-300"
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? 'Hide' : 'Show'}
+            </button>
+          </div>
         </div>
 
         {/* Submit Button */}
