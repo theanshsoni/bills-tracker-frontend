@@ -8,6 +8,7 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -21,10 +22,7 @@ const Login = () => {
         password,
       });
 
-      // Store JWT in localStorage
       localStorage.setItem('token', response.data.token);
-
-      // Redirect to dashboard
       navigate('/dashboard');
     } catch (err) {
       setError(err.response?.data?.message || 'Login failed. Please try again.');
@@ -47,23 +45,30 @@ const Login = () => {
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 border border-gray-700 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Enter your email"
             required
           />
         </div>
 
-        <div className="mb-6">
+        <div className="mb-6 relative">
           <label htmlFor="password" className="block text-gray-300 mb-2">Password</label>
           <input
-            type="password"
+            type={showPassword ? 'text' : 'password'}
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-3 bg-gray-700 border border-gray-600 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="w-full p-3 border border-gray-700 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Enter your password"
             required
           />
+          <button
+            type="button"
+            className="absolute inset-y-0 right-0 pr-4 flex items-center text-blue-400 hover:text-blue-300"
+            onClick={() => setShowPassword((prev) => !prev)}
+          >
+            {showPassword ? 'Hide' : 'Show'}
+          </button>
         </div>
 
         <button
@@ -78,7 +83,7 @@ const Login = () => {
 
         <p className="mt-6 text-center text-gray-400">
           Don't have an account?{' '}
-          <a href="/register" className="text-blue-400 hover:underline">Register here</a>
+          <a href="/register" className="text-blue-500 hover:underline">Register here</a>
         </p>
       </form>
     </div>
