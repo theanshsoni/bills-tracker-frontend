@@ -99,19 +99,6 @@ const Register = () => {
           />
         </div>
 
-        {/* Profile Picture */}
-        <div className="mb-6">
-          <label htmlFor="profilePicture" className="block text-gray-300 mb-2">Profile Picture URL (Optional):</label>
-          <input
-            type="text"
-            id="profilePicture"
-            value={profilePicture}
-            onChange={(e) => setProfilePicture(e.target.value)}
-            className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded-lg focus:ring-2 focus:ring-blue-500"
-            placeholder="Profile picture URL"
-          />
-        </div>
-
         {/* Submit Button */}
         <button
           type="submit"
