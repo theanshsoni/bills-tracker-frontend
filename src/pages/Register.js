@@ -37,99 +37,107 @@ const Register = () => {
   };
 
   return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <form onSubmit={handleSubmit} className="bg-white p-8 rounded-lg shadow-md w-96">
-        <h2 className="text-2xl font-bold mb-6 text-center">Register</h2>
+    <div className="flex items-center justify-center h-screen bg-gray-900">
+      <form onSubmit={handleSubmit} className="bg-gray-800 p-8 rounded-lg shadow-md w-96">
+        <h2 className="text-2xl font-bold mb-6 text-center text-white">Register</h2>
 
-        {error && <p className="text-red-500 text-center mb-4">{error}</p>}
+        {error && <p className="text-red-400 text-center mb-4">{error}</p>}
 
+        {/* Username */}
         <div className="mb-4">
-          <label htmlFor="username" className="block text-gray-700 mb-2">Username:</label>
+          <label htmlFor="username" className="block text-gray-300 mb-2">Username:</label>
           <input
             type="text"
             id="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            className="w-full p-2 border rounded-lg"
+            className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded-lg focus:ring-2 focus:ring-blue-500"
             placeholder="Enter your username"
             required
           />
         </div>
 
+        {/* Name */}
         <div className="mb-4">
-          <label htmlFor="name" className="block text-gray-700 mb-2">Name:</label>
+          <label htmlFor="name" className="block text-gray-300 mb-2">Name:</label>
           <input
             type="text"
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full p-2 border rounded-lg"
+            className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded-lg focus:ring-2 focus:ring-blue-500"
             placeholder="Enter your name"
             required
           />
         </div>
 
+        {/* Email */}
         <div className="mb-4">
-          <label htmlFor="email" className="block text-gray-700 mb-2">Email:</label>
+          <label htmlFor="email" className="block text-gray-300 mb-2">Email:</label>
           <input
             type="email"
             id="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="w-full p-2 border rounded-lg"
+            className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded-lg focus:ring-2 focus:ring-blue-500"
             placeholder="Enter your email"
             required
           />
         </div>
 
+        {/* Password */}
         <div className="mb-4">
-          <label htmlFor="password" className="block text-gray-700 mb-2">Password:</label>
+          <label htmlFor="password" className="block text-gray-300 mb-2">Password:</label>
           <input
             type="password"
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-2 border rounded-lg"
+            className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded-lg focus:ring-2 focus:ring-blue-500"
             placeholder="Enter a strong password"
             required
           />
         </div>
 
+        {/* Role */}
         <div className="mb-4">
-          <label htmlFor="role" className="block text-gray-700 mb-2">Role:</label>
+          <label htmlFor="role" className="block text-gray-300 mb-2">Role:</label>
           <select
             id="role"
             value={role}
             onChange={(e) => setRole(e.target.value)}
-            className="w-full p-2 border rounded-lg"
+            className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded-lg focus:ring-2 focus:ring-blue-500"
           >
             <option value="user">User</option>
             <option value="admin">Admin</option>
           </select>
         </div>
 
+        {/* Profile Picture */}
         <div className="mb-6">
-          <label htmlFor="profilePicture" className="block text-gray-700 mb-2">Profile Picture URL (Optional):</label>
+          <label htmlFor="profilePicture" className="block text-gray-300 mb-2">Profile Picture URL (Optional):</label>
           <input
             type="text"
             id="profilePicture"
             value={profilePicture}
             onChange={(e) => setProfilePicture(e.target.value)}
-            className="w-full p-2 border rounded-lg"
+            className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded-lg focus:ring-2 focus:ring-blue-500"
             placeholder="Profile picture URL"
           />
         </div>
 
+        {/* Submit Button */}
         <button
           type="submit"
-          className="w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600"
+          className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
         >
           Register
         </button>
 
-        <p className="mt-4 text-center">
+        {/* Redirect to Login */}
+        <p className="mt-4 text-center text-gray-400">
           Already have an account?{' '}
-          <a href="/" className="text-blue-500 hover:underline">Login</a>
+          <a href="/" className="text-blue-400 hover:underline">Login</a>
         </p>
       </form>
     </div>
