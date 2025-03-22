@@ -1,6 +1,7 @@
 {
     "name": "bill-tracker-frontend",
     "version": "1.0.0",
+    "homepage": ".",
     "description": "Frontend for Bill Tracker using React and Tailwind CSS",
     "main": "index.js",
     "scripts": {
