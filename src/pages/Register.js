@@ -22,12 +22,12 @@ const Register = () => {
       name,
       email,
       password,
-      role,
+      role: role || 'user',
       profilePicture: profilePicture || undefined,
     };
 
     try {
-      const response = await axios.post(`${process.env.REACT_APP_API_URL}/api/auth/register`, userData);
+      const response = await axios.post(`${process.env.REACT_APP_API_URL}/auth/register`, userData);
 
       alert('Registration successful! Please log in.');
       navigate('/');
@@ -97,20 +97,6 @@ const Register = () => {
             placeholder="Enter a strong password"
             required
           />
-        </div>
-
-        {/* Role */}
-        <div className="mb-4">
-          <label htmlFor="role" className="block text-gray-300 mb-2">Role:</label>
-          <select
-            id="role"
-            value={role}
-            onChange={(e) => setRole(e.target.value)}
-            className="w-full p-2 border border-gray-600 bg-gray-700 text-white rounded-lg focus:ring-2 focus:ring-blue-500"
-          >
-            <option value="user">User</option>
-            <option value="admin">Admin</option>
-          </select>
         </div>
 
         {/* Profile Picture */}
