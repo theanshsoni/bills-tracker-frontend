@@ -38,6 +38,7 @@ const Login = () => {
 
         {error && <p className="text-red-400 text-center mb-4">{error}</p>}
 
+        {/* Email Input */}
         <div className="mb-4">
           <label htmlFor="email" className="block text-gray-300 mb-2">Email Address</label>
           <input
@@ -51,6 +52,7 @@ const Login = () => {
           />
         </div>
 
+        {/* Password Input with Show/Hide Feature */}
         <div className="mb-6 relative">
           <label htmlFor="password" className="block text-gray-300 mb-2">Password</label>
           <input
@@ -58,19 +60,20 @@ const Login = () => {
             id="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="w-full p-3 border border-gray-700 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
+            className="w-full p-3 pr-12 border border-gray-700 rounded-lg bg-gray-700 text-white focus:outline-none focus:ring-2 focus:ring-blue-400"
             placeholder="Enter your password"
             required
           />
           <button
             type="button"
-            className="absolute inset-y-0 right-0 pr-4 flex items-center text-blue-400 hover:text-blue-300"
+            className="absolute inset-y-0 right-3 flex items-center text-blue-400 hover:text-blue-300"
             onClick={() => setShowPassword((prev) => !prev)}
           >
             {showPassword ? 'Hide' : 'Show'}
           </button>
         </div>
 
+        {/* Submit Button */}
         <button
           type="submit"
           className={`w-full py-3 text-white rounded-lg transition ${
@@ -81,6 +84,7 @@ const Login = () => {
           {loading ? 'Logging in...' : 'Login'}
         </button>
 
+        {/* Navigation to Register */}
         <p className="mt-6 text-center text-gray-400">
           Don't have an account?{' '}
           <a href="/register" className="text-blue-500 hover:underline">Register here</a>
