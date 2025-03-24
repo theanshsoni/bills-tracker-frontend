@@ -67,7 +67,7 @@ const Dashboard = ({ user, onLogout }) => {
       {/* Navigation Bar */}
       <nav className="navbar">
         <div className="left">
-          <img src={favicon} alt="Logo" className="logo" />
+          <img src="/favicon.ico" alt="Logo" className="logo" />
           <span className="logo-text">Dashboard</span>
         </div>
 
