@@ -15,17 +15,30 @@ const Dashboard = ({ user, onLogout }) => {
 
   const fetchProperties = async () => {
     try {
-      const response = await axios.get('/api/properties');
-      setProperties(response.data);
+      const token = localStorage.getItem('token');
+      const response = await axios.get(`${process.env.REACT_APP_API_URL}/properties`, {
+        headers: { Authorization: `Bearer ${token}` }
+      });
+
+      console.log("API Response:", response.data);
+      if (Array.isArray(response.data)) {
+        setProperties(response.data);
+      } else {
+        console.error("Unexpected API response: Expected an array.");
+        setProperties([]);
+      }
     } catch (error) {
       console.error('Error fetching properties:', error.message);
+      setProperties([]);
     }
   };
 
-  const filteredProperties = properties.filter((property) =>
-    property.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    property.user?.name?.toLowerCase().includes(searchTerm.toLowerCase())
-  );
+  const filteredProperties = Array.isArray(properties) 
+    ? properties.filter((property) =>
+        property.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        property.userId?.name?.toLowerCase().includes(searchTerm.toLowerCase())
+      )
+    : [];
 
   const renderTable = () => (
     <div className="table-container">
@@ -48,7 +61,7 @@ const Dashboard = ({ user, onLogout }) => {
             filteredProperties.map((property) => (
               <tr key={property._id}>
                 <td>{property.name}</td>
-                <td>{property.user?.name || 'N/A'}</td>
+                <td>{property.userId?.name || 'N/A'}</td>
               </tr>
             ))
           ) : (
