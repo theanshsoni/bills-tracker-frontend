@@ -21,24 +21,28 @@ const Dashboard = ({ user, onLogout }) => {
       });
 
       console.log("API Response:", response.data);
-      if (Array.isArray(response.data)) {
+      if (response.status === 200 && Array.isArray(response.data)) {
         setProperties(response.data);
       } else {
-        console.error("Unexpected API response: Expected an array.");
+        console.error("Unexpected API response:", response.data);
         setProperties([]);
       }
     } catch (error) {
-      console.error('Error fetching properties:', error.message);
+      console.error('Error fetching properties:', error?.response?.data || error.message);
       setProperties([]);
     }
   };
 
-  const filteredProperties = Array.isArray(properties) 
-    ? properties.filter((property) =>
-        property.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        property.userId?.name?.toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    : [];
+  const filteredProperties = properties.filter((property) =>
+    property.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    (property.userId?.name?.toLowerCase() || '').includes(searchTerm.toLowerCase())
+  );
+
+  const handleLogout = () => {
+    if (window.confirm('Are you sure you want to logout?')) {
+      onLogout();
+    }
+  };
 
   const renderTable = () => (
     <div className="table-container">
@@ -92,7 +96,7 @@ const Dashboard = ({ user, onLogout }) => {
 
         <div className="right">
           <span>{user?.name}</span>
-          <button className="logout-btn" onClick={onLogout}>Logout</button>
+          <button className="logout-btn" onClick={handleLogout}>Logout</button>
         </div>
       </nav>
 
