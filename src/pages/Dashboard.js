@@ -1,9 +1,10 @@
-// src/pages/Dashboard.js
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Dashboard.css';
 
-const Dashboard = ({ user, onLogout }) => {
+const Dashboard = ({ user }) => {
+  const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('Properties');
   const [properties, setProperties] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
@@ -34,17 +35,18 @@ const Dashboard = ({ user, onLogout }) => {
     }
   };
 
+  const handleLogout = () => {
+    if (window.confirm('Are you sure you want to logout?')) {
+      localStorage.removeItem('token');
+      localStorage.removeItem('user'); // Clear user data from storage
+      navigate('/'); // Redirect to login
+    }
+  };
+
   const filteredProperties = properties.filter((property) =>
     property.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     (property.userId?.name?.toLowerCase() || '').includes(searchTerm.toLowerCase())
   );
-
-  const handleLogout = () => {
-    if (window.confirm('Are you sure you want to logout?')) {
-      localStorage.removeItem('token');
-      onLogout(); // Call the passed logout function
-    }
-  };
 
   const renderTable = () => (
     <div className="table-container">
