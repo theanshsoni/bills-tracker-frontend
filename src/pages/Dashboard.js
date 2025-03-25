@@ -1,3 +1,4 @@
+// src/pages/Dashboard.js
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './Dashboard.css';
@@ -40,7 +41,8 @@ const Dashboard = ({ user, onLogout }) => {
 
   const handleLogout = () => {
     if (window.confirm('Are you sure you want to logout?')) {
-      onLogout();
+      localStorage.removeItem('token');
+      onLogout(); // Call the passed logout function
     }
   };
 
