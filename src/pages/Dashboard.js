@@ -3,17 +3,33 @@ import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import './Dashboard.css';
 
-const Dashboard = ({ user }) => {
+const Dashboard = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState('Properties');
   const [properties, setProperties] = useState([]);
+  const [user, setUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState('');
 
-  const isAdmin = user?.role === 'admin';
-
+  // Fetch user details using the /profile endpoint
   useEffect(() => {
+    const fetchUserProfile = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await axios.get(`${process.env.REACT_APP_API_URL}/profile`, {
+          headers: { Authorization: `Bearer ${token}` }
+        });
+
+        console.log("User Profile Response:", response.data);
+        setUser(response.data);
+      } catch (error) {
+        console.error('Error fetching user profile:', error?.response?.data || error.message);
+        navigate('/'); // Redirect to login if unauthorized
+      }
+    };
+
+    fetchUserProfile();
     fetchProperties();
-  }, [activeTab]);
+  }, [navigate, activeTab]);
 
   const fetchProperties = async () => {
     try {
@@ -22,7 +38,7 @@ const Dashboard = ({ user }) => {
         headers: { Authorization: `Bearer ${token}` }
       });
 
-      console.log("API Response:", response.data);
+      console.log("Properties Response:", response.data);
       if (response.status === 200 && Array.isArray(response.data)) {
         setProperties(response.data);
       } else {
@@ -35,11 +51,12 @@ const Dashboard = ({ user }) => {
     }
   };
 
+  const isAdmin = user?.role === 'admin';
+
   const handleLogout = () => {
     if (window.confirm('Are you sure you want to logout?')) {
       localStorage.removeItem('token');
-      localStorage.removeItem('user'); // Clear user data from storage
-      navigate('/'); // Redirect to login
+      navigate('/');
     }
   };
 
@@ -82,6 +99,10 @@ const Dashboard = ({ user }) => {
     </div>
   );
 
+  if (!user) {
+    return <p>Loading user data...</p>;
+  }
+
   return (
     <div className="dashboard">
       {/* Navigation Bar */}
@@ -99,7 +120,7 @@ const Dashboard = ({ user }) => {
         </div>
 
         <div className="right">
-          <span>{user?.name}</span>
+          <span>{user?.name || 'Guest'}</span>
           <button className="logout-btn" onClick={handleLogout}>Logout</button>
         </div>
       </nav>
